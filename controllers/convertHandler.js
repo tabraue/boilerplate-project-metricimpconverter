@@ -1,9 +1,20 @@
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    let result;
+    const regex = /[.,]/
+    const num = /\d+/
+    let result = ''
     
-    return result;
+    if(!regex.test(input) && num.test(input)){
+      let arr = input.split('')
+      for (let i = 0; i < arr.length; i++) {
+        if(num.test(arr[i]) ){
+          result+=arr[i]
+        }
+      } 
+      return parseInt(result)
+    }
+    return 'invalid number'
   };
   
   this.getUnit = function(input) {

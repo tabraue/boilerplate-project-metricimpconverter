@@ -1,6 +1,26 @@
 function ConvertHandler() {
   
   this.getNum = function(input) {
+
+/*
+
+//***************************************
+
+const getNum2 = (input) => {
+  if(input === '') return 1
+  const regex = /^\d+(?:\.\d+)?(?:\d+)?[a-zA-Z]+$/
+  if(regex.test(input)){
+    
+    
+    return 'hola'
+  }
+  return 'bye'
+}
+
+getNum2('L')
+
+*/
+
     const regex = /[.,]/
     const num = /\d+/
     let result = ''

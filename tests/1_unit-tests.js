@@ -24,6 +24,10 @@ suite('Unit Tests', function(){
     test('Read fractional with decimal number input', () => {
       assert.equal(convertHandler.getNum('kg'), 1, 'No numerical imput provided')
     })
+
+    test('Read valid input unit', () => {
+      assert.equal(convertHandler.getUnit('60kg'), 'kg', '')
+    })
 });
 
 /*

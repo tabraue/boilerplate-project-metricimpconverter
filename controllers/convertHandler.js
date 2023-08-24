@@ -1,40 +1,28 @@
+const METRIC = ['gal', 'l', 'mi', 'km', 'lbs', 'kg']
+
+
 function ConvertHandler() {
   
   this.getNum = function(input) {
+    const splitInput = input.split('/');
+    let result;
 
-/*
-
-//***************************************
-
-const getNum2 = (input) => {
-  if(input === '') return 1
-  const regex = /^\d+(?:\.\d+)?(?:\d+)?[a-zA-Z]+$/
-  if(regex.test(input)){
-    
-    
-    return 'hola'
-  }
-  return 'bye'
-}
-
-getNum2('L')
-
-*/
-
-    const regex = /[.,]/
-    const num = /\d+/
-    let result = ''
-    
-    if(!regex.test(input) && num.test(input)){
-      let arr = input.split('')
-      for (let i = 0; i < arr.length; i++) {
-        if(num.test(arr[i]) ){
-          result+=arr[i]
-        }
-      } 
-      return parseInt(result)
+    if (splitInput.length === 1) {
+      result = parseFloat(input) || 1;
+    } else if (splitInput.length === 2) {
+      const numerator = parseFloat(splitInput[0]);
+      const denominator = parseFloat(splitInput[1]);
+      
+      if (isNaN(numerator) || isNaN(denominator)) {
+        result = 'invalid number';
+      } else {
+        result = numerator / denominator;
+      }
+    } else {
+      result = 'invalid number';
     }
-    return 'invalid number'
+
+    return result;
   };
   
   this.getUnit = function(input) {

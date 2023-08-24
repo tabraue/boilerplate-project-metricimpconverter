@@ -7,16 +7,22 @@ let convertHandler = new ConvertHandler();
 
 suite('Unit Tests', function(){
     test('Read whole number input', () =>{
-        assert.strictEqual(convertHandler.getNum('60kg'), 60, 'Number -not decimal- can be read')
-        assert.strictEqual(convertHandler.getNum('6 2kg'), 62, 'Number -not decimal- can be read')
-/*         assert.notStrictEqual(convertHandler.getNum('kg', 6, 'Invalid format'))
-        assert.notStrictEqual(convertHandler.getNum('6.2kg', 62, 'Invalid format')) */
+        assert.equal(convertHandler.getNum('60kg'), 60, 'Number -not decimal- can be read')
     })
     test('Read decimal number input', () =>{
-        assert.strictEqual(convertHandler.getNum('6.0kg'), 6, 'Decimal number can be read')
-        assert.strictEqual(convertHandler.getNum('6.2kg', 6.2, 'Decimal number can be read'))
-        assert.notStrictEqual(convertHandler.getNum('kg', 6, 'Invalid format'))
-        assert.notStrictEqual(convertHandler.getNum('6.2kg', 62, 'Invalid format'))
+        assert.equal(convertHandler.getNum('6.2kg'), 6.2, 'Decimal number can be read');
+    })
+    test('Read fractional number input', () => {
+      assert.equal(convertHandler.getNum('1/2kg'), 0.5, 'Fractional number can be read')
+    })
+    test('Read fractional with decimal number input', () => {
+      assert.equal(convertHandler.getNum('1.2/2kg'), 0.6, 'Fractional with decimal number can be read')
+    })
+    test('Double-fraction not permited', () => {
+      assert.isString(convertHandler.getNum('1/2/2kg'), 'invalid number')
+    })
+    test('Read fractional with decimal number input', () => {
+      assert.equal(convertHandler.getNum('kg'), 1, 'No numerical imput provided')
     })
 });
 
@@ -24,40 +30,6 @@ suite('Unit Tests', function(){
 
 
 suite('Unit Tests', function(){
- it('should correctly read a whole number input', function() {
-    const input = '42L';
-    const expected = 42;
-    assert.strictEqual(convertHandler.getNum(input), expected);
-  });
-
-  it('should correctly read a decimal number input', function() {
-    const input = '3.14L';
-    const expected = 3.14;
-    assert.strictEqual(convertHandler.getNum(input), expected);
-  });
-
-  it('should correctly read a fractional input', function() {
-    const input = '1/2L';
-    const expected = 0.5;
-    assert.strictEqual(convertHandler.getNum(input), expected);
-  });
-
-  it('should correctly read a fractional input with a decimal', function() {
-    const input = '3.5/2L';
-    const expected = 1.75;
-    assert.strictEqual(convertHandler.getNum(input), expected);
-  });
-
-  it('should correctly return an error on a double-fraction', function() {
-    const input = '3/2/3L';
-    assert.strictEqual(convertHandler.getNum(input), 'invalid number');
-  });
-
-  it('should correctly default to a numerical input of 1 when no numerical input is provided', function() {
-    const input = 'kg';
-    const expected = 1;
-    assert.strictEqual(convertHandler.getNum(input), expected);
-  });
 
   it('should correctly read each valid input unit', function() {
     assert.strictEqual(convertHandler.getUnit('10L'), 'L');

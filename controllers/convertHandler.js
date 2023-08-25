@@ -26,10 +26,16 @@ function ConvertHandler() {
   };
   
   this.getUnit = function(input) {
-    let result;
+    const splitInput = input.split(/[0-9]+/)
+    const leng = splitInput.length-1
+    const result = splitInput[leng].toLowerCase()
+
+    if(METRIC.includes(result)) {
+      if(result === 'l') return result.toUpperCase()
+      return result
+    };
     
-    
-    return result;
+    return 'invalid unit';
   };
   
   this.getReturnUnit = function(initUnit) {

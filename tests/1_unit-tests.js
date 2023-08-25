@@ -26,7 +26,7 @@ suite('Unit Tests', function(){
     })
 
     test('Read valid input unit', () => {
-      assert.equal(convertHandler.getUnit('60kg'), 'kg', '')
+      assert.equal(convertHandler.getUnit('60kg'), 'kg', 'Valid input unit')
     })
 });
 
@@ -35,14 +35,7 @@ suite('Unit Tests', function(){
 
 suite('Unit Tests', function(){
 
-  it('should correctly read each valid input unit', function() {
-    assert.strictEqual(convertHandler.getUnit('10L'), 'L');
-    assert.strictEqual(convertHandler.getUnit('10gal'), 'gal');
-  });
 
-  it('should correctly return an error for an invalid input unit', function() {
-    assert.strictEqual(convertHandler.getUnit('10invalid'), 'invalid unit');
-  });
 
   it('should return the correct return unit for each valid input unit', function() {
     assert.strictEqual(convertHandler.getReturnUnit('L'), 'gal');

@@ -24,36 +24,16 @@ suite('Unit Tests', function(){
     test('Read fractional with decimal number input', () => {
       assert.equal(convertHandler.getNum('kg'), 1, 'No numerical imput provided')
     })
-
     test('Read valid input unit', () => {
       assert.equal(convertHandler.getUnit('60kg'), 'kg', 'Valid input unit')
     })
+    test('Correct unit change', () => {
+      assert.equal(convertHandler.getReturnUnit('kg'), 'lbs', 'Valid unit change')
+    })
+    test('Correct spelling unit', () => {
+      assert.equal(convertHandler.spellOutUnit('kg'), 'kilograms', 'Valid unit spelling')
+    })
+    test('Correct conversion', () => {
+      assert.equal(convertHandler.convert('5', 'l'), '1.3208608842899447gal', 'Correct conversion')
+    })
 });
-
-/*
-
-
-suite('Unit Tests', function(){
-
-
-
-  it('should return the correct return unit for each valid input unit', function() {
-    assert.strictEqual(convertHandler.getReturnUnit('L'), 'gal');
-    assert.strictEqual(convertHandler.getReturnUnit('gal'), 'L');
-  });
-
-  it('should correctly return the spelled-out string unit for each valid input unit', function() {
-    assert.strictEqual(convertHandler.spellOutUnit('L'), 'liters');
-    assert.strictEqual(convertHandler.spellOutUnit('gal'), 'gallons');
-  });
-
-  it('should correctly convert gal to L', function() {
-    const input = 5;
-    const initUnit = 'gal';
-    const expected = 18.92705;
-    assert.approximately(convertHandler.convert(input, initUnit), expected, 0.1);
-  });
-});
-
-
-*/

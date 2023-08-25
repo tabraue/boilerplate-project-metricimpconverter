@@ -1,5 +1,12 @@
-const METRIC = ['gal', 'l', 'mi', 'km', 'lbs', 'kg']
-
+const METRIC = ['gal', 'l', 'L', 'mi', 'km', 'lbs', 'kg']
+const CONVERSION = {
+  'gal': { to: 'L', calc: 3.78541 },
+  'L':   { to: 'gal', calc: 1 / 3.78541 },
+  'lbs': { to: 'kg', calc: 0.453592 },
+  'kg':  { to: 'lbs', calc: 1 / 0.453592 },
+  'mi':  { to: 'km', calc: 1.60934 },
+  'km':  { to: 'mi', calc: 1 / 1.60934 }
+}
 
 function ConvertHandler() {
   
@@ -38,25 +45,69 @@ function ConvertHandler() {
     return 'invalid unit';
   };
   
-  this.getReturnUnit = function(initUnit) {
-    let result;
-    
-    return result;
+  this.getReturnUnit = function(initUnit) {  
+    const input = this.getUnit(initUnit)
+    switch (input) {
+      case 'gal':
+        return 'L'
+        break;
+      case 'L':
+        return 'gal'
+        break;
+      case 'mi':
+        return 'km'
+        break;
+      case 'km':
+        return 'mi'
+        break;
+      case 'lbs':
+        return 'kg'
+        break;
+      case 'kg':
+        return 'lbs'
+        break;
+      default:
+        return 'invalid unit'
+        break;
+    }
   };
 
   this.spellOutUnit = function(unit) {
-    let result;
-    
-    return result;
+    const input = this.getUnit(unit)
+    switch (input) {
+      case 'gal':
+        return 'gallons'
+        break;
+      case 'L':
+        return 'liters'
+        break;
+      case 'mi':
+        return 'miles'
+        break;
+      case 'km':
+        return 'kilometers'
+        break;
+      case 'lbs':
+        return 'pounds'
+        break;
+      case 'kg':
+        return 'kilograms'
+        break;
+      default:
+        return 'invalid unit'
+        break;
+    }
   };
   
   this.convert = function(initNum, initUnit) {
-    const galToL = 3.78541;
-    const lbsToKg = 0.453592;
-    const miToKm = 1.60934;
-    let result;
-    
-    return result;
+    const num = this.getNum(initNum)
+    const unit = this.getUnit(initUnit)
+
+    if(num === 'invalid number' && unit === 'invalid unit') return 'invalid number and unit'
+
+    const value = num * CONVERSION[unit].calc
+    const newUnit = CONVERSION[unit].to
+    return value + newUnit
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {

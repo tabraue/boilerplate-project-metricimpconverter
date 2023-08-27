@@ -19,13 +19,16 @@ suite('Unit Tests', function(){
       assert.equal(convertHandler.getNum('1.2/2kg'), 0.6, 'Fractional with decimal number can be read')
     })
     test('Double-fraction not permited', () => {
-      assert.isString(convertHandler.getNum('1/2/2kg'), 'invalid number')
+      assert.isString(convertHandler.getNum('3/2/3'), 'invalid number')
     })
-    test('Read fractional with decimal number input', () => {
-      assert.equal(convertHandler.getNum('kg'), 1, 'No numerical imput provided')
+    test('Default number when no input provided', () => {
+      assert.equal(convertHandler.getNum('kg'), 1, 'No numerical input provided')
     })
     test('Read valid input unit', () => {
       assert.equal(convertHandler.getUnit('60kg'), 'kg', 'Valid input unit')
+    })
+    test('Invalid unit input', () => {
+      assert.notEqual(convertHandler.getUnit('60k'),'60kg', 'invalid unit')
     })
     test('Correct unit change', () => {
       assert.equal(convertHandler.getReturnUnit('kg'), 'lbs', 'Valid unit change')
@@ -34,6 +37,30 @@ suite('Unit Tests', function(){
       assert.equal(convertHandler.spellOutUnit('kg'), 'kilograms', 'Valid unit spelling')
     })
     test('Correct conversion', () => {
-      assert.equal(convertHandler.convert('5', 'l'), '1.3208608842899447gal', 'Correct conversion')
+      assert.equal(convertHandler.convert('5', 'gal'), '18.92705L', 'Correct conversion')
     })
+    test('Correct conversion', () => {
+      assert.equal(convertHandler.convert('5', 'L'), '1.32086gal', 'Correct conversion')
+    })
+    test('Correct conversion', () => {
+      assert.equal(convertHandler.convert('5', 'mi'), '8.04670km', 'Correct conversion')
+    })
+    test('Correct conversion', () => {
+      assert.equal(convertHandler.convert('5', 'km'), '3.10686mi', 'Correct conversion')
+    })
+    test('Correct conversion', () => {
+      assert.equal(convertHandler.convert('5', 'lbs'), '2.26796kg', 'Correct conversion')
+    })
+    test('Correct conversion', () => {
+      assert.equal(convertHandler.convert('5', 'kg'), '11.02312lbs', 'Correct conversion')
+    })
+    /*test('Correct to String format', () => {
+      assert.isObject(convertHandler.getString('10', 'kg'),{
+        initNum: '10',
+        initUnit: 'kg',
+        returnNum: '22.046244201837773',
+        returnUnit: 'lbs',
+        string: '10 kilograms converts to 22.046244201837773 lbs'
+      }, 'Valid format')
+    }) */
 });

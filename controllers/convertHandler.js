@@ -10,14 +10,21 @@ const CONVERSION = {
 
 function ConvertHandler() {
   this.getNum = function (input) {
-    if (input === undefined || input === "" || input <= "0")
+    if (input === undefined || input <= "0")
       return "invalid number";
-
+    else if(input === "") return 'invalid input'
+    
+    const metricRegex = METRIC.join("|");
+    const regex = new RegExp(`^(\\d+(\\.\\d+)?(${metricRegex}))?$`);
     const splitInput = input.split("/");
     let result;
 
     if (splitInput.length === 1) {
-      result = parseFloat(input) || 1;
+      if (!regex.test(input) || !METRIC.includes(input)) {
+        result = parseFloat(input) || 1;
+      } else {
+        result = "invalid unit";
+      }
     } else if (splitInput.length === 2) {
       const numerator = parseFloat(splitInput[0]);
       const denominator = parseFloat(splitInput[1]);
@@ -106,11 +113,13 @@ function ConvertHandler() {
   this.convert = function (initNum, initUnit) {
     if (initNum === undefined || initNum === "") return "invalid number";
     else if (initUnit === undefined || initUnit === "") return "invalid unit";
+
     const num = this.getNum(initNum);
     const unit = this.getUnit(initUnit);
 
-    if (num === "invalid number" && unit === "invalid unit")
-      return "invalid number and unit";
+    if (num === "invalid number" && unit === "invalid unit") return "invalid number and unit";
+    else if (num === "invalid number") return "invalid number";
+    else if (unit === "invalid unit") return "invalid unit";
 
     const value = num * CONVERSION[unit].calc;
     const newUnit = CONVERSION[unit].to;
@@ -126,7 +135,7 @@ function ConvertHandler() {
 
     returnNum = this.convert(initNum, initUnit);
     returnNum = this.getNum(returnNum);
-    returnNum = parseFloat(returnNum).toFixed(5)
+    returnNum = parseFloat(returnNum).toFixed(5);
     returnUnit = this.convert(initNum, initUnit);
     returnUnit = this.getUnit(returnUnit);
 

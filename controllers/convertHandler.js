@@ -134,14 +134,10 @@ function ConvertHandler() {
     initUnit = this.getUnit(initUnit);
     if (initUnit === "invalid unit") return "invalid unit";
 
-    returnNum = this.convert(initNum, initUnit);
-    returnNum = this.getNum(returnNum);
-    returnNum = parseFloat(returnNum).toFixed(5);
-    returnUnit = this.convert(initNum, initUnit);
-    returnUnit = this.getUnit(returnUnit);
-
-    // else if( || returnUnit === 'invalid unit') return 'invalid unit'
-    //else if(returnNum === "invalid number and unit" || returnUnit === "invalid number and unit") return "invalid number and unit"
+    const returnNumAndUnit = this.convert(initNum, initUnit);
+    returnNum = this.getNum(returnNumAndUnit);
+    //returnNum = parseFloat(returnNum).toFixed(5);
+    returnUnit = this.getUnit(returnNumAndUnit);
 
     let result = {
       initNum: initNum,

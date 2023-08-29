@@ -17,7 +17,7 @@ suite("Functional Tests", function () {
         assert.strictEqual(res.status, 200);
         assert.strictEqual(res.body.initNum, 10);
         assert.strictEqual(res.body.initUnit, 'L')
-        assert.strictEqual(res.body.returnNum, '2.64172')
+        assert.strictEqual(res.body.returnNum, 2.64172)
         assert.strictEqual(res.body.returnUnit, 'gal')  
         done();
     });
@@ -33,7 +33,7 @@ suite("Functional Tests", function () {
         assert.strictEqual(res.status, 200);
         assert.notEqual(res.body.initNum, 32);
         assert.notEqual(res.body.initUnit, 'g', 'kg')
-        assert.notEqual(res.body.returnNum, 'invalid unit', '70.54798')
+        assert.notEqual(res.body.returnNum, 'invalid unit', 70.54798)
         assert.notEqual(res.body.returnUnit, 'invalid unit', 'lbs')
         done();
     });
@@ -81,7 +81,7 @@ suite("Functional Tests", function () {
         assert.strictEqual(res.status, 200);
         assert.strictEqual(res.body.initNum, 1);
         assert.strictEqual(res.body.initUnit, 'kg')
-        assert.strictEqual(res.body.returnNum, '2.20462')
+        assert.strictEqual(res.body.returnNum, 2.20462)
         assert.strictEqual(res.body.returnUnit, 'lbs')  
         done();
     });

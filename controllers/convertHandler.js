@@ -9,6 +9,7 @@ const CONVERSION = {
 };
 
 function ConvertHandler() {
+  
   this.getNum = function (input) {
     if (input === undefined || input <= "0")
       return "invalid number";
@@ -16,7 +17,7 @@ function ConvertHandler() {
     
     const metricRegex = METRIC.join("|");
     const regex = new RegExp(`^(\\d+(\\.\\d+)?(${metricRegex}))?$`);
-    const splitInput = input.split("/");
+    const splitInput = input.toString().split("/");
     let result;
 
     if (splitInput.length === 1) {
@@ -38,7 +39,7 @@ function ConvertHandler() {
       result = "invalid number";
     }
 
-    return result.toString();
+    return result
   };
 
   this.getUnit = function (input) {

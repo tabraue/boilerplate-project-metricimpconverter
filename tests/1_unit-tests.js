@@ -6,6 +6,7 @@ let convertHandler = new ConvertHandler();
 
 
 suite('Unit Tests', function(){
+
     test('Read whole number input', () =>{
         assert.equal(convertHandler.getNum('60kg'), 60, 'Number -not decimal- can be read')
     })
@@ -54,13 +55,5 @@ suite('Unit Tests', function(){
     test('Correct conversion', () => {
       assert.equal(convertHandler.convert('5', 'kg'), '11.02312lbs', 'Correct conversion')
     })
-    /*test('Correct to String format', () => {
-      assert.isObject(convertHandler.getString('10', 'kg'),{
-        initNum: '10',
-        initUnit: 'kg',
-        returnNum: '22.046244201837773',
-        returnUnit: 'lbs',
-        string: '10 kilograms converts to 22.046244201837773 lbs'
-      }, 'Valid format')
-    }) */
+
 });

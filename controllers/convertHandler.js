@@ -146,7 +146,7 @@ function ConvertHandler() {
       returnUnit: returnUnit,
       string: `${initNum} ${this.spellOutUnit(
         initUnit
-      )} converts to ${returnNum} ${returnUnit}`,
+      )} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`,
     };
     return result;
   };

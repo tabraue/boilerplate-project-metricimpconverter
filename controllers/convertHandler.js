@@ -128,15 +128,13 @@ function ConvertHandler() {
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
-    initNum = this.getNum(initNum);
-    if (initNum === "invalid number") return "invalid number";
-
     initUnit = this.getUnit(initUnit);
-    if (initUnit === "invalid unit") return "invalid unit";
+    if (initNum === "invalid number" && initUnit === "invalid unit") return "invalid number and unit";
+    else if (initNum === "invalid number") return "invalid number";
+    else if (initUnit === "invalid unit") return "invalid unit";
 
     const returnNumAndUnit = this.convert(initNum, initUnit);
     returnNum = this.getNum(returnNumAndUnit);
-    //returnNum = parseFloat(returnNum).toFixed(5);
     returnUnit = this.getUnit(returnNumAndUnit);
 
     let result = {

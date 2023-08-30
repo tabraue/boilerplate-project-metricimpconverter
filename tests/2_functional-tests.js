@@ -10,6 +10,7 @@ suite("Functional Tests", function () {
   test("Convert a valid input - 10L", function (done) {
     chai
       .request(server)
+      .keepOpen()
       .get("/api/convert")
       .query({input: '10L'})
       .end(function (err, res) {
@@ -26,15 +27,16 @@ suite("Functional Tests", function () {
   test("Convert an invalid input  - 32g", function (done) {
     chai
       .request(server)
+      .keepOpen()
       .get("/api/convert")
       .query({input: '32g'})
       .end(function (err, res) {
         if(err) return done(err)
         assert.strictEqual(res.status, 200);
         assert.notEqual(res.body.initNum, 32);
-        assert.notEqual(res.body.initUnit, 'g', 'kg')
-        assert.notEqual(res.body.returnNum, 'invalid unit', 70.54798)
-        assert.notEqual(res.body.returnUnit, 'invalid unit', 'lbs')
+        assert.notStrictEqual(res.body.initUnit, 'g')
+        assert.notStrictEqual(res.body.returnNum, 70.54798) //'invalid unit', 
+        assert.notStrictEqual(res.body.returnUnit, 'lbs') //'invalid unit', 
         done();
     });
   });
@@ -42,15 +44,16 @@ suite("Functional Tests", function () {
   test("Convert an invalid input - 3/7.2/4kg", function (done) {
     chai
       .request(server)
+      .keepOpen()
       .get("/api/convert")
       .query({input: '3/7.2/4kg'})
       .end(function (err, res) {
         if(err) return done(err)
-        assert.strictEqual(res.status, 200);
-        assert.notEqual(res.body.initNum, '3/7.2/4');
-        assert.strictEqual(res.body.initUnit, 'kg')
-        assert.notEqual(res.body.returnNum, 'invalid number')
-        assert.strictEqual(res.body.returnUnit, 'lbs')  
+      assert.strictEqual(res.status, 200);
+      assert.isNotOk(res.body.initNum, 'invalid number');
+      assert.isNotOk(res.body.initUnit, 'invalid number');
+      assert.notStrictEqual(res.body.returnNum, 0.91859, 'invalid number');
+      assert.isNotOk(res.body.initUnit, 'invalid number');
         done();
     });
   });
@@ -58,15 +61,16 @@ suite("Functional Tests", function () {
   test("Convert an invalid input and unit - 3/7.2/4kilomegagram", function (done) {
     chai
       .request(server)
+      .keepOpen()
       .get("/api/convert")
       .query({input: '3/7.2/4kilomegagram'})
       .end(function (err, res) {
         if(err) return done(err)
         assert.strictEqual(res.status, 200);
-        assert.isNotOk(res.body.initNum, '13/7.2/4');
-        assert.isNotOk(res.body.initUnit, 'kilomegagram')
-        assert.isNotOk(res.body.returnNum, 'invalid number and unit')
-        assert.isNotOk(res.body.returnUnit, 'invalid number and unit')  
+        assert.isNotOk(res.body.initNum, 'invalid number');
+        assert.isNotOk(res.body.initUnit, 'invalid unit')
+        assert.notStrictEqual(res.body.returnNum, 0.91859, 'invalid number and unit')
+        assert.notStrictEqual(res.body.returnUnit, 'lbs', 'invalid number and unit')  
         done();
     });
   }); 
@@ -74,6 +78,7 @@ suite("Functional Tests", function () {
   test("Convert with no number - kg", function (done) {
     chai
       .request(server)
+      .keepOpen()
       .get("/api/convert")
       .query({input: 'kg'})
       .end(function (err, res) {
